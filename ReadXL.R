@@ -1,4 +1,5 @@
-path <- "/Users/brianzhong/Desktop/Behavioral Data/R_2015.xlsx"
+path <- "/Users/brianzhong/Desktop/Behavioral Data/KK_2015.xlsx"
+path2<- "/Users/brianzhong/Desktop/oxtr_genotypes.xlsx"
 
 HH_2014 <- read_excel(path, sheet = "2014 HH FOCAL")
 F_2010 <- read_excel(path, sheet = "alldata_randomised")
@@ -13,3 +14,4 @@ S_2011 <- read_excel(path, sheet = "DATA no Duplicate DAYS")
 F_2015 <- read_excel(path, sheet = "behaviours")
 F_2013 <- read_excel(path, sheet = "behaviours")
 F_2014 <- read_excel(path, sheet = "behaviours")
+oxtr_genotypes <- read_excel(path2, sheet = "Sheet1")
