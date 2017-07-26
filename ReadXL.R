@@ -15,3 +15,4 @@ F_2013 <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/F_2013.xls", she
 F_2014 <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/F_2014.xls", sheet = "behaviours")
 oxtr_genotypes <- read_excel("/Users/brianzhong/Desktop/Genomic Data/oxtr_genotypes.xlsx", sheet = "Sheet1")
 avpr1a_genotypes <- read_excel("/Users/brianzhong/Desktop/Genomic Data/avpr1a_genotypes.xlsx", sheet = "Sheet1")
+avpr1b_genotypes <- read_excel("/Users/brianzhong/Desktop/Genomic Data/avpr1b_genotypes.xlsx", sheet = "Sheet1")

@@ -4,7 +4,7 @@ for (i in all_files) {
   all_files[i] <- x(all_files[i])
   }
 
-F_2014_obs <- x(F_2014)
+V_2016_obs <- x(V_2016)
 
 x <- function(file) {
   
@@ -24,6 +24,10 @@ x <- function(file) {
   GroomGET <- array(0, dim = c(50000, 1))
   Initiate_Approach <- array(0, dim = c(50000, 1))
   Receive_Approach <- array(0, dim = c(50000, 1))
+  Initiate_PassCont <- array(0, dim = c(50000, 1))
+  Receive_PassCont <- array(0, dim = c(50000, 1))
+  Give_contactAgg <- array(0, dim = c(50000, 1))
+  Receive_contactAgg <- array(0, dim = c(50000, 1))
   GroomInf <- array(0, dim = c(50000, 1))
   
   # set the first value in the Obs and Focal ID arrays to the first value in the data frame
@@ -52,11 +56,35 @@ x <- function(file) {
       GroomInf[k] <- GroomInf[k] + file$Duration_Revised[j]
     }
     if (file$`Event Name`[j] == "Approach") {
-      if (file$`Behavior Modifier 1`[j] == "initiate (focal)") {
+      if (file$`Behavior Modifier 1`[j] == "") {
+        Initiate_PassCont[k] <- "NA"
+        Receive_PassCont[k] <- "NA"
+      }
+      else if (file$`Behavior Modifier 1`[j] == "initiate (focal)") {
       Initiate_Approach[k] <- Initiate_Approach[k] + 1
       }
       else if (file$`Behavior Modifier 1`[j] == "initiate (partner)") {
         Receive_Approach[k] <- Receive_Approach[k] + 1
+      }
+    }
+    if (file$`Event Name`[j] == "passcont") {
+      if (file$`Behavior Modifier 1`[j] == "") {
+        Initiate_PassCont[k] <- "NA"
+        Receive_PassCont[k] <- "NA"
+      }
+      else if (file$`Behavior Modifier 1`[j] == "initiate (focal)") {
+        Initiate_PassCont[k] <- Initiate_PassCont[k] + file$Duration_Revised[j]
+      }
+      else if (file$`Behavior Modifier 1`[j] == "initiate (partner)") {
+        Receive_PassCont[k] <- Receive_PassCont[k] + file$Duration_Revised[j]
+      }
+    }
+    if (file$`Event Name`[j] == "contactAgg") {
+      if (file$`Behavior Modifier 1`[j] == "direct'n (give)") {
+        Give_contactAgg[k] <- Give_contactAgg[k] + 1
+      }
+      else if (file$`Behavior Modifier 1`[j] == "direct'n (receive)") {
+        Receive_contactAgg[k] <- Give_contactAgg[k] + 1
       }
     }
   }
@@ -68,6 +96,10 @@ x <- function(file) {
   length(GroomInf) <- k
   length(Initiate_Approach) <- k
   length(Receive_Approach) <- k
+  length(Initiate_PassCont) <- k
+  length(Receive_PassCont) <- k
+  length(Give_contactAgg) <- k
+  length(Receive_contactAgg) <- k
   length(Focal_ID) <- k
   
   # rename the Obs vector to Observation_name
@@ -77,6 +109,6 @@ x <- function(file) {
   Year <- rep(c(file$Year[1]), times = k)
   
   # create a data frame that combines all three vectors
-  observation <- data.frame(Focal_ID, Year, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach)
+  observation <- data.frame(Focal_ID, Year, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Initiate_PassCont, Receive_PassCont, Give_contactAgg, Receive_contactAgg)
   return(observation)
 }

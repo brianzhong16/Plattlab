@@ -1,8 +1,10 @@
 # bind all behavioral data across files
-all_obs <- cbind(HH_2014_obs, KK_2015_obs, V_2015_obs, R_2015_obs, V_2016_obs, F_2016_obs, F_2015_obs, F_2013_obs, F_2014_obs)
+all_obs <- rbind(HH_2014_obs, KK_2015_obs, V_2015_obs, V_2016_obs, F_2016_obs, F_2015_obs, F_2014_obs)
 
 # merge genotype and behavioral data
 merged_OXTR <- merge(all_obs, oxtr_genotypes, by = "Focal_ID")
+merged_OXTR_AVPR1 <-  merge(merged_OXTR, avpr1a_genotypes, by = "Focal_ID")
+merged_OXTR_AVPR1 <-  merge(merged_OXTR_AVPR1, avpr1b_genotypes, by = "Focal_ID")
 
 # read VCF file from computer 
 # OXTR <- read.vcfR("OXTR_data", file = "/Users/brianzhong/OXTR_imputed_rhemac8_all_impact.vcf")
