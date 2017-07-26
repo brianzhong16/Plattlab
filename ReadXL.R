@@ -1,3 +1,5 @@
+library(readxl)
+
 HH_2014 <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/HH_2014.xlsx", sheet = "2014 HH FOCAL")
 # F_2010 <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/F_2010.xlsx", sheet = "alldata_randomised")
 # F_2012_novigilance <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/F_2012.xls", sheet = "behaviours_no vigilance")
@@ -11,4 +13,5 @@ F_2016 <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/F_2016.xlsx", sh
 F_2015 <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/F_2015.xlsx", sheet = "behaviours")
 F_2013 <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/F_2013.xls", sheet = "behaviours")
 F_2014 <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/F_2014.xls", sheet = "behaviours")
-oxtr_genotypes <- read_excel("/Users/brianzhong/Desktop/oxtr_genotypes.xlsx", sheet = "Sheet1")
+oxtr_genotypes <- read_excel("/Users/brianzhong/Desktop/Genomic Data/oxtr_genotypes.xlsx", sheet = "Sheet1")
+avpr1a_genotypes <- read_excel("/Users/brianzhong/Desktop/Genomic Data/avpr1a_genotypes.xlsx", sheet = "Sheet1")
