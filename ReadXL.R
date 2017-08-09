@@ -16,3 +16,5 @@ F_2014 <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/F_2014.xls", she
 oxtr_genotypes <- read_excel("/Users/brianzhong/Desktop/Genomic Data/oxtr_genotypes.xlsx", sheet = "Sheet1")
 avpr1a_genotypes <- read_excel("/Users/brianzhong/Desktop/Genomic Data/avpr1a_genotypes.xlsx", sheet = "Sheet1")
 avpr1b_genotypes <- read_excel("/Users/brianzhong/Desktop/Genomic Data/avpr1b_genotypes.xlsx", sheet = "Sheet1")
+pedigree <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/PEDIGREE_updated2016.xlsx", sheet = "Demographic Data")
+dominance <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/DOMINANCE_ALLSUBJECTS_LONGLIST.xlsx", sheet = "DOMINANCE_ALLSUBJECTS")

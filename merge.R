@@ -32,7 +32,7 @@ for (i in 5:17) {
 # convert data frame to data table
 merged_OXTR_AVPR1 <- as.data.table(merged_OXTR_AVPR1)
 
-
+# create new column and set value depending on quantiles
 for (i in 1:nrow(merged_OXTR_AVPR1)) {
   if (merged_OXTR_AVPR1$'GroomGET'[i] == 1) {
     merged_OXTR_AVPR1$'GroomGET1'[i] <- "GroomGET1"
@@ -44,28 +44,8 @@ for (i in 1:nrow(merged_OXTR_AVPR1)) {
     merged_OXTR_AVPR1$'GroomGET1'[i] <- "GroomGET3"
   }
 }
-  
+
+# cast data table by year and focal ID  
 merged_GroomGET <- dcast(merged_OXTR_AVPR1, Year + Focal_ID ~ GroomGET1, value.var = "GroomGET", fun=sum)
 
 
-# read VCF file from computer 
-# OXTR <- read.vcfR("OXTR_data", file = "/Users/brianzhong/OXTR_imputed_rhemac8_all_impact.vcf")
-# OXTR<- readVcf("/Users/brianzhong/OXTR_imputed_rhemac8_all_impact.vcf")
-
-# extract genotype data from VCF object
-# OXTR <- extract.gt(OXTR, element = "GT", mask = FALSE, as.numeric = FALSE, return.alleles = FALSE, IDtoRowNames = TRUE, extract = TRUE, convertNA = TRUE)
-
-# transpose data frame
-# OXTR <- t(OXTR_d)
-# OXTR <- as.data.frame(OXTR_d)
-# OXTR <- genotypeToSnpMatrix(u_OXTR, uncertain = FALSE)
-# OXTR <- as.data.table(u_OXTR)
-
-# OXTR_DP <- extract.dp(OXTR, element = "GT", mask = FALSE, as.numeric = FALSE, return.alleles = TRUE, IDtoRowNames = TRUE, extract = TRUE, convertNA = TRUE)
-# OXTR_data <- as.data.table(OXTR_data)
-
-# convert Focal ID rownames to a column
-# OXTR <- rownames_to_column(OXTR_d, var = "Focal_ID")
-
-# OXTR_chr2_57649859 <- OXTR_chr2[OXTR_chr2$Var1 == "chr2_57649859",]
-# colnames(OXTR_chr2_57649859) <- c("Chromosome", "Focal_ID", "Genotype")

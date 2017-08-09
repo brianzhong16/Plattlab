@@ -128,5 +128,9 @@ x <- function(file) {
   
   # create a data frame that combines all three vectors
   observation <- data.frame(Focal_ID, Year, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
+  
+  # delete all arrays
+  rm(Focal_ID, Year, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
+
   return(observation)
 }
