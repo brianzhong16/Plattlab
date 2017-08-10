@@ -1,19 +1,18 @@
-N <- 353 # total number of observations
-P1 <- 3 # age, sex, age sex interaction
+N <- 778 # total number of observations
+P1 <- 11 # age, sex, age sex interaction, 8 individual observers
 P2 <- 26 # all loci (OXTR, AVPR1A, AVPR1B, TPH1)
 D <- 2 # GroomGIVE, GroomGET
-L <- c(3,3)
-V <- 1 # focal ID
+L <- c(3,3) # number of levels per behavior
+V <- 1 # random effects: focal ID
 K <- c(171) # number of unique focal IDs
 dim(K) <- 1 # change number of dimensions of K to 1
-Y <- as.matrix(merged_OXTR_AVPR1[, 5:10]) # columns containing behaviors
+Y <- as.matrix(merged_OXTR_AVPR1[, 7:12]) # columns containing behaviors
 
 merged_OXTR_AVPR1$Age <- scale(merged_OXTR_AVPR1$Age) # z score Y
  
-X1 <- model.matrix( ~ Age*SEX, merged_OXTR_AVPR1)[,-1] # demographic predictors
-colnames(X1) <- c("Age", "SEX", "Age*SEX") # set column names of X1
+X1 <- model.matrix( ~ Age*SEX + Observer, merged_OXTR_AVPR1)[,-1] # demographic predictors
 
-X2 <- as.matrix(merged_OXTR_AVPR1[,c(28:52, 54)]) # all genotypes
+X2 <- as.matrix(merged_OXTR_AVPR1[,c(30:55)]) # all genotypes
 
 # set unique value for each focal ID
 Z <- array(0, dim = c(353, 1))
@@ -33,5 +32,6 @@ nu <- 4 # degrees of freedom
 param <- list(N=N, P1=P1, P2=P2, D=D, L=L, V=V, K=K, Y=Y, X1=X1, X2=X2, Z=Z, nu=nu)
 
 library(rstan)
-fit <- stan(file = 'model.stan', data = param, iter = 1000, warmup = 500, chains = 2)
-
+fit <- stan(file = 'model.stan', data = param, iter = 1000, warmup = 500, chains = 2, pars = c("u_raw", "u"), include = F)
+library(shinystan)
+shinyfit <- as.shinystan(fit)

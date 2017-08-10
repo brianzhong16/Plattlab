@@ -4,7 +4,7 @@ for (i in all_files) {
   all_files[i] <- x(all_files[i])
   }
 
-V_2016_obs <- x(V_2016)
+F_2014_obs <- x(F_2014)
 
 x <- function(file) {
   
@@ -13,6 +13,7 @@ x <- function(file) {
   # convert Focal IDs and observation names to uppercase
   file$`Observation Name` <- str_to_upper(file$`Observation Name`)
   file$`Focal ID` <- str_to_upper(file$`Focal ID`)
+  file$'Observer' <- str_to_upper(file$`Observer`)
   
   # eliminate rows where observation name is missing
   file <- file[!is.na(file$`Observation Name`),]
@@ -23,6 +24,7 @@ x <- function(file) {
   # create empty arrays of observations, focal IDs, and durations
   Obs <- array(0, dim = c(50000, 1))
   Focal_ID <- array(0, dim = c(50000, 1))
+  Observer  <- array(0, dim = c(50000, 1))
   GroomGIVE <- array(0, dim = c(50000, 1))
   GroomGET <- array(0, dim = c(50000, 1))
   Initiate_Approach <- array(0, dim = c(50000, 1))
@@ -40,6 +42,7 @@ x <- function(file) {
   # set the first value in the Obs and Focal ID arrays to the first value in the data frame
   Obs[1] <- file$`Observation Name`[1]
   Focal_ID[1] <- file$`Focal ID`[1]
+  Observer[1] <- file$'Observer'[1]
   
   # instantiate i and j values
   j <- 1
@@ -47,13 +50,14 @@ x <- function(file) {
   
   # append values in respective arrays for each reference to GroomGIVE, GroomGET, Approach
   # add next unique observation in array
-  print(HH_2014)
+  print(file)
   print(file$`Observation Name`[2])
   
   for ( j in 2:nrow(file)) {
     if (Obs[k] != file$`Observation Name`[j]) {
       Obs[k + 1] <- file$`Observation Name`[j]
       Focal_ID[k + 1] <- file$`Focal ID`[j]
+      Observer[k + 1] <- file$'Observer'[j]
       k <- k + 1
     }
     if (file$`Event Name`[j] == "GroomGIVE") {
@@ -105,6 +109,7 @@ x <- function(file) {
   
   # set length of arrays to number of unique observations
   length(Obs) <- k
+  length(Observer) <- k
   length(GroomGIVE) <- k
   length(GroomGET) <- k
   length(GroomInf) <- k
@@ -127,10 +132,10 @@ x <- function(file) {
   Year <- rep(c(file$Year[1]), times = k)
   
   # create a data frame that combines all three vectors
-  observation <- data.frame(Focal_ID, Year, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
+  observation <- data.frame(Focal_ID, Year, Observer, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
   
   # delete all arrays
-  rm(Focal_ID, Year, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
+  rm(Focal_ID, Year, Observation_name, Observer, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
 
   return(observation)
 }

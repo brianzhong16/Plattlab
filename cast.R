@@ -12,5 +12,6 @@ for (i in 1:nrow(all_obs)) {
 }
 
 # cast data table by year and focal ID  
-cast9 <- dcast(all_obs, Year + Focal_ID ~ Receive_contactAgg1, value.var = "Receive_contactAgg", fun=sum)
-
+cast18 <- dcast(all_obs, Year + Focal_ID + Observer ~ Receive_contactAgg1, value.var = "Receive_contactAgg", fun=sum)
+alarm()
+# add observer to cast function to account for different observers
