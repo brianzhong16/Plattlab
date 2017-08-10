@@ -1,15 +1,16 @@
 # create new column and set value depending on quantiles
-for (i in 1:nrow(merged_OXTR_AVPR1)) {
-  if (merged_OXTR_AVPR1$'Receive_Approach'[i] == 1) {
-    merged_OXTR_AVPR1$'Receive_Approach1'[i] <- "Receive_Approach1"
+for (i in 1:nrow(all_obs)) {
+  if (all_obs$'Receive_contactAgg'[i] == 1) {
+    all_obs$'Receive_contactAgg1'[i] <- "Receive_contactAgg1"
   }
-  else if (merged_OXTR_AVPR1$'Receive_Approach'[i] == 2) {
-    merged_OXTR_AVPR1$'Receive_Approach1'[i] <- "Receive_Approach2"
+  else if (all_obs$'Receive_contactAgg'[i] == 2) {
+    all_obs$'Receive_contactAgg1'[i] <- "Receive_contactAgg2"
   }
   else {
-    merged_OXTR_AVPR1$'Receive_Approach1'[i] <- "Receive_Approach3"
+    all_obs$'Receive_contactAgg1'[i] <- "Receive_contactAgg3"
   }
 }
 
 # cast data table by year and focal ID  
-merged_Receive_Approach <- dcast(merged_OXTR_AVPR1, Year + Focal_ID ~ Receive_Approach1, value.var = "Receive_Approach", fun=sum)
+cast9 <- dcast(all_obs, Year + Focal_ID ~ Receive_contactAgg1, value.var = "Receive_contactAgg", fun=sum)
+
