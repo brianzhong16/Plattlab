@@ -19,3 +19,6 @@ avpr1b_genotypes <- read_excel("/Users/brianzhong/Desktop/Genomic Data/avpr1b_ge
 tph1_genotypes <- read_excel("/Users/brianzhong/Desktop/Genomic Data/tph1_genotypes.xlsx", sheet = "Sheet1")
 pedigree <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/PEDIGREE_updated2016.xlsx", sheet = "Demographic Data")
 dominance <- read_excel("/Users/brianzhong/Desktop/Behavioral Data/DOMINANCE_ALLSUBJECTS_LONGLIST.xlsx", sheet = "DOMINANCE_ALLSUBJECTS")
+oxtr_r2 <- read_excel("/Users/brianzhong/Desktop/Genomic Data/r2 values.xlsx", sheet = "OXTR")
+avpr1a_r2 <- read_excel("/Users/brianzhong/Desktop/Genomic Data/r2 values.xlsx", sheet = "AVPR1A")
+avpr1b_r2 <- read_excel("/Users/brianzhong/Desktop/Genomic Data/r2 values.xlsx", sheet = "AVPR1B")
