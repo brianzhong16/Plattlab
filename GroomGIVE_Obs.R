@@ -1,10 +1,11 @@
 all_files <- c(HH_2014, KK_2015, V_2015, R_2015, V_2016, F_2016, F_2015, F_2013, F_2014)
+processed_files <- list()
 
 for (i in all_files) {
-  all_files[i] <- x(all_files[i])
+  processed_files[[i]] <- x(all_files[[i]])
   }
 
-F_2014_obs <- x(F_2014)
+F_2013_obs <- x(F_2013)
 
 x <- function(file) {
   
@@ -21,10 +22,13 @@ x <- function(file) {
   #eliminate rows where partner ID is not an adult primate
   file <- file[ ! file$'PartnerID' %in% c("Infant", "Juvenile", "Mistake" ,"Unknown", "Human"), ]
   
+  file$'Duration_Revised' <- as.numeric(file$'Duration_Revised')
+  
   # create empty arrays of observations, focal IDs, and durations
   Obs <- array(0, dim = c(50000, 1))
   Focal_ID <- array(0, dim = c(50000, 1))
   Observer  <- array(0, dim = c(50000, 1))
+  Group <- array(0, dim = c(50000, 1))
   GroomGIVE <- array(0, dim = c(50000, 1))
   GroomGET <- array(0, dim = c(50000, 1))
   Initiate_Approach <- array(0, dim = c(50000, 1))
@@ -130,12 +134,13 @@ x <- function(file) {
   
   # create a vector of years
   Year <- rep(c(file$Year[1]), times = k)
+  Group <- rep(c(file$Group[1]), times = k)
   
   # create a data frame that combines all three vectors
-  observation <- data.frame(Focal_ID, Year, Observer, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
+  observation <- data.frame(Focal_ID, Year, Observer, Group, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
   
   # delete all arrays
-  rm(Focal_ID, Year, Observation_name, Observer, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
+  rm(Focal_ID, Year, Observation_name, Observer, Group, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
 
   return(observation)
 }

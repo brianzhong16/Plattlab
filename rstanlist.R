@@ -1,18 +1,20 @@
-N <- 778 # total number of observations
-P1 <- 11 # age, sex, age sex interaction, 8 individual observers
-P2 <- 13 # all loci (OXTR, AVPR1A, AVPR1B, TPH1) excluding those eliminated by r2 calculations
+N <- 976 # total number of observations
+P1 <- 6 # age, sex, age sex interaction, 10 individual observers (11 - 1), year, 4 groups
+P2 <- 30 # all loci (OXTR, AVPR1A, AVPR1B, TPH1, TPH2) excluding those eliminated by r2 calculations
 D <- 2 # GroomGIVE, GroomGET
 L <- c(3,3) # number of levels per behavior
 V <- 1 # random effects: focal ID
-K <- c(171) # number of unique focal IDs
+K <- c(191) # number of unique focal IDs
 dim(K) <- 1 # change number of dimensions of K to 1
-Y <- as.matrix(merged_OXTR_AVPR1[, 7:12]) # columns containing behaviors
+Y <- as.matrix(merged_OXTR_AVPR1[, 8:13]) # columns containing behaviors
 
 merged_OXTR_AVPR1$Age <- scale(merged_OXTR_AVPR1$Age) # z score Y
- 
-X1 <- model.matrix( ~ Age*SEX + Observer, merged_OXTR_AVPR1)[,-1] # demographic predictors
 
-X2 <- as.matrix(merged_OXTR_AVPR1[,c(32:33, 35:36, 38, 41:42, 48:51, 54:55)]) # 13 of 26 genotypes after r2 elimination
+X1 <- model.matrix( ~ Age*SEX + Observer + Year + Group, merged_OXTR_AVPR1)[,-1] # demographic predictors
+X1 <- X1[,c(1:3, 13:14, 18)]
+
+# X2 <- as.matrix(merged_OXTR_AVPR1[,c(35:36, 38:39, 41, 44:45, 51:54, 57:58, )]) # 13 of 26 genotypes after r2 elimination
+X2 <- as.matrix(merged_OXTR_AVPR1[, 31:60])
 
 # set unique value for each focal ID
 Z <- array(0, dim = c(353, 1))
@@ -32,6 +34,7 @@ nu <- 4 # degrees of freedom
 param <- list(N=N, P1=P1, P2=P2, D=D, L=L, V=V, K=K, Y=Y, X1=X1, X2=X2, Z=Z, nu=nu)
 
 library(rstan)
-fit <- stan(file = 'model.stan', data = param, iter = 2000, warmup = 1000, chains = 2, pars = c("u_raw", "u", "eta"), include = F)
+fit <- stan(file = 'model.stan', data = param, iter = 1000, warmup = 500, chains = 2, pars = c("u_raw", "u", "eta"), include = F)
 library(shinystan)
 shinyfit <- as.shinystan(fit)
+deploy_shinystan(shinyfit, appName = "monday_update")
