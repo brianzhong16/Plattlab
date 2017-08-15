@@ -19,9 +19,10 @@ for (i in 6:18) {
 library(data.table)
 all_obs <- as.data.table(all_obs)
 
+# cast data table by behavior (refer to cast script)
+
 # merge all casted data tables
 merged_behaviors <- Reduce(function(x, y) merge(x, y, all=TRUE), list(cast1, cast2, cast3, cast4, cast5, cast6, cast7, cast8, cast9))
-
 
 # merge genotype and behavioral data
 merged_OXTR <- merge(merged_behaviors, oxtr_genotypes, by = "Focal_ID")

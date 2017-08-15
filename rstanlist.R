@@ -1,6 +1,6 @@
 N <- 976 # total number of observations
 P1 <- 6 # age, sex, age sex interaction, 10 individual observers (11 - 1), year, 4 groups
-P2 <- 30 # all loci (OXTR, AVPR1A, AVPR1B, TPH1, TPH2) excluding those eliminated by r2 calculations
+P2 <- 17 # all loci (OXTR, AVPR1A, AVPR1B, TPH1, TPH2) excluding those eliminated by r2 calculations
 D <- 2 # GroomGIVE, GroomGET
 L <- c(3,3) # number of levels per behavior
 V <- 1 # random effects: focal ID
@@ -13,8 +13,7 @@ merged_OXTR_AVPR1$Age <- scale(merged_OXTR_AVPR1$Age) # z score Y
 X1 <- model.matrix( ~ Age*SEX + Observer + Year + Group, merged_OXTR_AVPR1)[,-1] # demographic predictors
 X1 <- X1[,c(1:3, 13:14, 18)]
 
-# X2 <- as.matrix(merged_OXTR_AVPR1[,c(35:36, 38:39, 41, 44:45, 51:54, 57:58, )]) # 13 of 26 genotypes after r2 elimination
-X2 <- as.matrix(merged_OXTR_AVPR1[, 31:60])
+X2 <- as.matrix(merged_OXTR_AVPR1[,c(33:34, 36:37, 39, 42:43, 49:52, 55:60)]) # 17 of 30 genotypes after r2 elimination
 
 # set unique value for each focal ID
 Z <- array(0, dim = c(353, 1))
