@@ -1,8 +1,14 @@
 # bind all behavioral data across files
+for (i in 1:length(processed_files)) {
+  processed_files[[i]] <- as.data.frame(processed_files[[i]])
+}
+
+all_obs <- as.data.frame(Reduce(merge, processed_files))
+
 all_obs <- rbind(HH_2014_obs, KK_2015_obs, V_2015_obs, V_2016_obs, F_2016_obs, F_2015_obs, F_2014_obs, F_2013_obs, R_2015_obs)
 all_obs$Year <- 2000 + all_obs$Year
-all_obs$IDyear <- paste(all_obs$Focal_ID, all_obs$Year, all_obs$Observer, sep = "")
-merged_OXTR_AVPR1$IDyear <- paste(merged_OXTR_AVPR1$Focal_ID, merged_OXTR_AVPR1$Year, merged_OXTR_AVPR1$Observer, sep = "")
+# all_obs$IDyear <- paste(all_obs$Focal_ID, all_obs$Year, all_obs$Observer, sep = "")
+# merged_OXTR_AVPR1$IDyear <- paste(merged_OXTR_AVPR1$Focal_ID, merged_OXTR_AVPR1$Year, merged_OXTR_AVPR1$Observer, sep = "")
 
 # function to compute quantiles and convert to numeric
 q <- function(column) {
