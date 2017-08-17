@@ -1,6 +1,6 @@
-N <- 976 # total number of observations
+N <- length(merged_OXTR_AVPR1) # total number of observations
 P1 <- 14 # age, sex, age sex interaction, 10 individual observers (11 - 1), year
-P2 <- 17 # all loci (OXTR, AVPR1A, AVPR1B, TPH1, TPH2) excluding those eliminated by r2 calculations
+P2 <- length(loci) # all loci (OXTR, AVPR1A, AVPR1B, TPH1, TPH2) excluding those eliminated by r2 calculations
 D <- 2 # GroomGIVE, GroomGET
 L <- c(3,3) # number of levels per behavior
 V <- 1 # random effects: focal ID
