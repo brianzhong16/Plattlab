@@ -18,7 +18,6 @@ for (i in 5:17) {
 all_obs <- merge(all_obs, oxtr_genotypes, by = "Focal_ID")
 
 # convert data frame to data table
-library(data.table)
 all_obs <- as.data.table(all_obs)
 
 # cast data table by behavior (refer to cast script)

@@ -17,7 +17,7 @@ q <- function(column) {
 }
 
 # loop quantile function for all behaviors
-for (i in 6:18) {
+for (i in 5:17) {
   all_obs[,i] <- q(all_obs[,i])
 }
 
