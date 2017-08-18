@@ -11,14 +11,13 @@ createbin <- function(column) {
 }
 
 # loop quantile function for all behaviors
-for (i in 5:17) {
+for (i in 6:18) {
   all_obs[,i] <- createbin(all_obs[,i])
 }
 
 all_obs <- merge(all_obs, oxtr_genotypes, by = "Focal_ID")
 
 # convert data frame to data table
-library(data.table)
 all_obs <- as.data.table(all_obs)
 
 # cast data table by behavior (refer to cast script)

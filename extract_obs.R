@@ -128,19 +128,10 @@ ext <- function(file) {
   
   # create a vector of years and groups
   Year <- rep(c(file$Year[1]), times = k)
-  
-  if ("Group" %in% colnames(file) == TRUE) {
-    Group <- rep(c(file$Group[1]), times = k)
-  }
+  Group <- rep(c(file$Group[1]), times = k)
   
   # create a data frame that combines all three vectors
-  if ("Group" %in% colnames(file) == TRUE) {
-    observation <- data.frame(Focal_ID, Year, Observer, Group, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
-  }
-  else {
-    observation <- data.frame(Focal_ID, Year, Observer, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
-  }
-
+  observation <- data.frame(Focal_ID, Year, Observer, Group, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
 
   # delete all arrays
   rm(Focal_ID, Year, Observation_name, Observer, Group, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
