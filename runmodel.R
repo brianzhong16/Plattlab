@@ -1,5 +1,5 @@
 N <- length(merged_OXTR_AVPR1) # total number of observations
-P1 <- 14 # age, sex, age sex interaction, 10 individual observers (11 - 1), year
+P1 <- 3 # age, sex, age sex interaction, 10 individual observers (11 - 1), year
 P2 <- length(loci) # all loci (OXTR, AVPR1A, AVPR1B, TPH1, TPH2) excluding those eliminated by r2 calculations
 D <- 2 # GroomGIVE, GroomGET
 L <- c(3,3) # number of levels per behavior
@@ -10,7 +10,7 @@ Y <- as.matrix(merged_OXTR_AVPR1[, names(merged_OXTR_AVPR1) %in% behaviors]) # c
 
 merged_OXTR_AVPR1$Age <- scale(merged_OXTR_AVPR1$Age) # z score Y
 
-X1 <- model.matrix( ~ Age*SEX + Observer + Year, merged_OXTR_AVPR1)[,-1] # demographic predictors
+X1 <- model.matrix( ~ Age*SEX, merged_OXTR_AVPR1)[,-1] # demographic predictors
 
 X2 <- as.matrix(merged_OXTR_AVPR1[, names(merged_OXTR_AVPR1) %in% loci]) # 17 of 30 genotypes after r2 elimination
 
