@@ -27,6 +27,7 @@ ext <- function(file) {
   Group <- array(0, dim = c(50000, 1))
   GroomGIVE <- array(0, dim = c(50000, 1))
   GroomGET <- array(0, dim = c(50000, 1))
+  PassCont <-  array(0, dim = c(50000, 1))
   Initiate_Approach <- array(0, dim = c(50000, 1))
   Receive_Approach <- array(0, dim = c(50000, 1))
   Unknown_Approach <- array(0, dim = c(50000, 1))
@@ -37,6 +38,9 @@ ext <- function(file) {
   Displacement_PassCont <- array(0, dim = c(50000, 1))
   Give_contactAgg <- array(0, dim = c(50000, 1))
   Receive_contactAgg <- array(0, dim = c(50000, 1))
+  noncontactAgg <- array(0, dim = c(50000, 1))
+  # Give_noncontactAgg <- array(0, dim = c(50000, 1))
+  # Receive_noncontactAgg <- array(0, dim = c(50000, 1))
   GroomInf <- array(0, dim = c(50000, 1))
   
   # set the first value in the Obs and Focal ID arrays to the first value in the data frame
@@ -82,17 +86,18 @@ ext <- function(file) {
       }
     }
     if (file$`Event Name`[j] == "passcont") {
+      PassCont[k] <- PassCont[k] + file$Duration_Revised[j]
       if (grepl("Focal", file$`Initiator`[j], ignore.case = TRUE)) {
-        Initiate_PassCont[k] <- Initiate_PassCont[k] + 1
+        Initiate_PassCont[k] <- Initiate_PassCont[k] + file$Duration_Revised[j]
       }
       else if (grepl("Partner", file$`Initiator`[j], ignore.case = TRUE)) {
-        Receive_PassCont[k] <- Receive_PassCont[k] + 1
+        Receive_PassCont[k] <- Receive_PassCont[k] + file$Duration_Revised[j]
       }
       else if (grepl("Unknown", file$`Initiator`[j], ignore.case = TRUE)) {
-        Unknown_PassCont[k] <- Unknown_PassCont[k] + 1
+        Unknown_PassCont[k] <- Unknown_PassCont[k] + file$Duration_Revised[j]
       }
       else if (grepl("Displac", file$`Initiator`[j], ignore.case = TRUE)) {
-        Displacement_PassCont[k] <- Displacement_PassCont[k] + 1
+        Displacement_PassCont[k] <- Displacement_PassCont[k] + file$Duration_Revised[j]
       }
     }
     if (file$`Event Name`[j] == "contactAgg") {
@@ -103,7 +108,18 @@ ext <- function(file) {
         Receive_contactAgg[k] <- Receive_contactAgg[k] + 1
       }
     }
-  }
+    if (file$`Event Name`[j] == "noncontactAgg") {
+        noncontactAgg[k] <- noncontactAgg[k] + 1
+        # if (grepl("give", file$`Behavior Modifier`[j], ignore.case = TRUE)) {
+          # Give_noncontactAgg[k] <- Give_noncontactAgg[k] + 1
+          # print("ok")
+        # }
+        # else if (grepl("receive", file$`Behavior Modifier`[j], ignore.case = TRUE)) {
+          # Receive_noncontactAgg[k] <- Receive_noncontactAgg[k] + 1
+          # print("alright")
+          # }
+        }
+    }
   
   # set length of arrays to number of unique observations
   length(Obs) <- k
@@ -113,6 +129,7 @@ ext <- function(file) {
   length(GroomInf) <- k
   length(Initiate_Approach) <- k
   length(Receive_Approach) <- k
+  length(PassCont) <- k
   length(Unknown_Approach) <- k
   length(Displacement_Approach) <- k
   length(Initiate_PassCont) <- k
@@ -121,6 +138,8 @@ ext <- function(file) {
   length(Displacement_PassCont) <- k
   length(Give_contactAgg) <- k
   length(Receive_contactAgg) <- k
+  length(noncontactAgg) <- k
+  # length(Receive_noncontactAgg) <- k
   length(Focal_ID) <- k
   
   # rename the Obs vector to Observation_name
@@ -131,11 +150,10 @@ ext <- function(file) {
   Group <- rep(c(file$Group[1]), times = k)
   
   # create a data frame that combines all three vectors
-  observation <- data.frame(Focal_ID, Year, Observer, Group, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
+  observation <- data.frame(Focal_ID, Year, Observer, Group, Observation_name, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, PassCont, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg, noncontactAgg)
 
   # delete all arrays
-  rm(Focal_ID, Year, Observation_name, Observer, Group, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg)
-
+  rm(Focal_ID, Year, Observation_name, Observer, Group, GroomGIVE, GroomGET, GroomInf, Initiate_Approach, Receive_Approach, Unknown_Approach, Displacement_Approach, PassCont, Initiate_PassCont, Receive_PassCont, Unknown_PassCont, Displacement_PassCont, Give_contactAgg, Receive_contactAgg, noncontactAgg)
   return(observation)
 }
 

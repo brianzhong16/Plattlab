@@ -1,4 +1,4 @@
-#path = "/Users/brianzhong/DropBox/" #brian's path
+# path = "/Users/brianzhong/DropBox/" #brian's path
 path <- "~/Dropbox/" #seth's path
 # F_2010 <- read_excel(paste0(path,"Behavioural Data for Seth/2014_groupHH_FOCALdata.xlsx"), sheet = "alldata_randomised")
 # F_2012_novigilance <- read_excel(paste0(path,"Behavioural Data for Seth/2012_GroupF_Masterdatafile.xls", sheet = "behaviours_no vigilance")

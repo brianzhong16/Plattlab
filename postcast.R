@@ -1,13 +1,20 @@
 # merge all casted data tables
 merged_behaviors <- Reduce(merge,casts)
 
+# switch values depending on major/minor alleles
+all_genotypes <- cbind(oxtr_genotypes, avpr1a_genotypes, avpr1b_genotypes, tph1_genotypes, tph2_genotypes, by = "Focal_ID")
+all_genotypes <- all_genotypes[-c(8, 22, 29, 31, 36)]
+for (i in 2:ncol(all_genotypes)) {
+  if (mean(all_genotypes[[i]]) > 1) {
+    all_genotypes[[i]][all_genotypes[[i]] == 0] <- 3
+    all_genotypes[[i]][all_genotypes[[i]] == 2] <- 4
+    all_genotypes[[i]][all_genotypes[[i]] == 3] <- 2
+    all_genotypes[[i]][all_genotypes[[i]] == 4] <- 0
+  }
+}
+
 # merge genotype and behavioral data
-merged_OXTR <- merge(merged_behaviors, oxtr_genotypes, by = "Focal_ID")
-merged_OXTR_AVPR1 <-  merge(merged_OXTR, avpr1a_genotypes, by = "Focal_ID")
-merged_OXTR_AVPR1 <-  merge(merged_OXTR_AVPR1, avpr1b_genotypes, by = "Focal_ID")
-merged_OXTR_AVPR1 <- merge(merged_OXTR_AVPR1, tph1_genotypes, by = "Focal_ID")
-merged_OXTR_AVPR1 <- merge(merged_OXTR_AVPR1, tph2_genotypes, by = "Focal_ID")
-rm(merged_OXTR)
+merged_OXTR_AVPR1 <- merge(merged_behaviors, all_genotypes, by = "Focal_ID")
 # rm(merged_behaviors)
 
 # merge and calculate age data
