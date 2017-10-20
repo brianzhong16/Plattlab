@@ -5,6 +5,7 @@ library(readxl)
 library(data.table)
 library(stringr)
 library(plyr)
+library(dplyr)
 
 # read all behavioral and genomic files from DropBox
 mainpath <- "~/Plattlab/"

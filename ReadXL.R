@@ -20,6 +20,5 @@ tph1_genotypes <- read_excel(paste0(path,"Behavioural Data for Seth/genotypes.xl
 tph2_genotypes <- read_excel(paste0(path,"Behavioural Data for Seth/genotypes.xlsx"), sheet = "TPH2")
 pedigree <- read_excel(paste0(path,"Pedigree and Life-History Data/PEDIGREE_updated2016.xlsx"), sheet = "Demographic Data")
 pedigree <- as.data.table(pedigree)
-# dominance data is pending 2016
 dominance <- read_excel(paste0(path,"Subjects_attributes, dominance, etc/Dominance Hierarchies/DOMINANCE_ALLSUBJECTS_LONGLIST.xlsx"), sheet = "DOMINANCE_ALLSUBJECTS")
 

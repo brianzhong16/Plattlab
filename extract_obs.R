@@ -28,16 +28,22 @@ ext <- function(file) {
   GroomGIVE <- array(0, dim = c(50000, 1))
   GroomGET <- array(0, dim = c(50000, 1))
   PassCont <-  array(0, dim = c(50000, 1))
+  Initiate_Approach_FF <- array(0, dim = c(50000, 1))
   Initiate_Approach <- array(0, dim = c(50000, 1))
   Receive_Approach <- array(0, dim = c(50000, 1))
+  Receive_Approach_FF <- array(0, dim = c(50000, 1))
   Unknown_Approach <- array(0, dim = c(50000, 1))
   Displacement_Approach <- array(0, dim = c(50000, 1))
   Initiate_PassCont <- array(0, dim = c(50000, 1))
+  Initiate_PassCont_FF <- array(0, dim = c(50000, 1))
   Receive_PassCont <- array(0, dim = c(50000, 1))
+  Receive_PassCont_FF <- array(0, dim = c(50000, 1))
   Unknown_PassCont <- array(0, dim = c(50000, 1))
   Displacement_PassCont <- array(0, dim = c(50000, 1))
   Give_contactAgg <- array(0, dim = c(50000, 1))
+  Give_contactAgg_FF <- array(0, dim = c(50000, 1))
   Receive_contactAgg <- array(0, dim = c(50000, 1))
+  Receive_contactAgg_FF <- array(0, dim = c(50000, 1))
   noncontactAgg <- array(0, dim = c(50000, 1))
   # Give_noncontactAgg <- array(0, dim = c(50000, 1))
   # Receive_noncontactAgg <- array(0, dim = c(50000, 1))
@@ -73,7 +79,7 @@ ext <- function(file) {
     }
     if (file$`Event Name`[j] == "Approach") {
       if (grepl("Focal", file$`Initiator`[j], ignore.case = TRUE)) {
-      Initiate_Approach[k] <- Initiate_Approach[k] + 1
+        Initiate_Approach[k] <- Initiate_Approach[k] + 1
       }
       else if (grepl("Partner", file$`Initiator`[j], ignore.case = TRUE)) {
         Receive_Approach[k] <- Receive_Approach[k] + 1
@@ -115,9 +121,9 @@ ext <- function(file) {
           # print("ok")
         # }
         # else if (grepl("receive", file$`Behavior Modifier`[j], ignore.case = TRUE)) {
-          # Receive_noncontactAgg[k] <- Receive_noncontactAgg[k] + 1
-          # print("alright")
-          # }
+        #   Receive_noncontactAgg[k] <- Receive_noncontactAgg[k] + 1
+        #   print("alright")
+        # }
         }
     }
   
@@ -139,6 +145,7 @@ ext <- function(file) {
   length(Give_contactAgg) <- k
   length(Receive_contactAgg) <- k
   length(noncontactAgg) <- k
+  # length(Give_noncontactAgg) <- k
   # length(Receive_noncontactAgg) <- k
   length(Focal_ID) <- k
   

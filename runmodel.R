@@ -13,7 +13,7 @@ Y <- as.matrix(data[, c(9:14, 18:23, 28:30, 43:45)]) # behaviors
 
 data$Age <- scale(data$Age) # z score Y
 data[,Year:=factor(Year)] # make year a categorical variable
-X1 <- model.matrix( ~ Age*SEX + Observer + Year + Group, data)[,-1] # demographic predictors
+X1 <- model.matrix( ~ Age*SEX + Observer + Year + Group + ORD_RANK, data)[,-1] # demographic predictors
 P1 <- ncol(X1)
 X2 <- as.matrix(data[, names(data) %in% loci,with=F]) # 17 of 30 genotypes after r2 elimination
 Z <- as.matrix(data[,as.numeric(factor(Focal_ID))])

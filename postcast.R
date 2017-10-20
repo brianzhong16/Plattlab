@@ -20,7 +20,7 @@ merged_OXTR_AVPR1 <- merge(merged_behaviors, all_genotypes, by = "Focal_ID")
 # merge and calculate age data
 merged_OXTR_AVPR1 <-  merge(pedigree[,c(1, 2, 11)], merged_OXTR_AVPR1, by = "Focal_ID")
 merged_OXTR_AVPR1[,Age:=Year - CS.BIRTH.SEASON]
-merged_OXTR_AVPR1 <- merged_OXTR_AVPR1[,c(1:3, ncol(merged_OXTR_AVPR1), 4:(ncol(merged_OXTR_AVPR1))-1),with=F]
+merged_OXTR_AVPR1 <- merged_OXTR_AVPR1[,c(1:3, ncol(merged_OXTR_AVPR1), 5:(ncol(merged_OXTR_AVPR1))-1),with=F]
 
 # create new column that combines ID and year
 # merged_OXTR_AVPR1$IDyear <- paste(merged_OXTR_AVPR1$Focal_ID, merged_OXTR_AVPR1$Year, sep = "")
