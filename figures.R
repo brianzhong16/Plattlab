@@ -1,5 +1,5 @@
-param <- param_all
-fit <- fit_all
+param <- param_ff
+fit <- fit_ff
 
 lambda <- extract(fit,pars="lambda",permuted=T)$lambda
 #behnames <- ordered(behaviors,levels=behaviors[param$D:1])
@@ -23,10 +23,14 @@ locieff <- data.table(lambda=exp(lambda)-1,
 effplt <- locieff[,.(mu=mean(lambda),lb=quantile(lambda,0.025),
            ub=quantile(lambda,0.975),lbi=quantile(lambda,0.1),ubi=quantile(lambda,0.9)),
         by=c("locus","behavior")]
+effplt[str_detect(locus,"chr2"),gene:="OXTR"]
+effplt[str_detect(locus,"chr11"),gene:="AVPR1A"]
+effplt[str_detect(locus,"chr1:"),gene:="AVPR1B"]
+effplt[,gene:=ordered(gene,levels=c("OXTR","AVPR1A","AVPR1B"))]
 
-ggplot(effplt,aes(x=mu,y=locus)) + geom_point() + geom_errorbarh(aes(xmin=lb,xmax=ub),height=0,size=.25) +
+ggplot(effplt,aes(x=mu,y=locus,color=gene)) + geom_point() + geom_errorbarh(aes(xmin=lb,xmax=ub),height=0,size=.25) +
   geom_errorbarh(aes(xmin=lbi,xmax=ubi),height=0,size=1) + facet_wrap( ~ behavior,nrow = 3) +
-  ylab("SNV") + geom_vline(xintercept=0,size=0.1) + scale_x_continuous("Odds % change",labels = scales::percent)
+  ylab("SNV") + geom_vline(xintercept=0,size=0.1) + scale_x_continuous("Odds % change",labels = scales::percent) + scale_color_brewer(NULL,palette = "Dark2")
 
 coeffnames <- c("Male","Age",expression(Age^2),"Rank",expression(Rank^2),"Male x Age",expression("Male x Age"^2),"Male x Rank",expression("Male x"))
 if (ncol(param$X1)<length(coeffnames)) coeffnames <- coeffnames[2:5]
