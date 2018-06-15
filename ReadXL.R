@@ -18,7 +18,8 @@ V_2016 <- read_excel(paste0(behpath,"2016_GroupV_MASTERFILE.xlsx"), sheet = "She
 F_2016 <- read_excel(paste0(behpath,"2016.GrpF_Masterfile.xlsx"), sheet = "2016.GrpF_MASTER")
 F_2015 <- read_excel(paste0(behpath,"GroupF_2015_FOCALdata.xlsx"), sheet = "behaviours")
 #F_2013 <- read_excel(paste0(behpath,"GrpF focal data_2013 MASTERFILE.xls"), sheet = "behaviours")
-F_2014 <- read_excel(paste0(behpath,"Masterdatafile2014_ALL_GroupF.xls"), sheet = "behaviours")
+#F_2014 <- read_excel(paste0(behpath,"Masterdatafile2014_ALL_GroupF.xls"), sheet = "behaviours")
+F_2014 <- fread(paste0(behpath,"Masterdatafile2014_ALL_GroupF.csv"))
 #oh my fucking god
 F_2014$Direction <- F_2014$`Behavior Modifier`
 
