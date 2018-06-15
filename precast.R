@@ -1,3 +1,8 @@
+processed_files <- list()
+for (i in 1:length(all_files)) {
+  processed_files[[i]] = ext(all_files[[i]])
+}
+
 # bind all behavioral data across files
 all_obs <- do.call(rbind,processed_files)
 # I can't believe we have to do this shit
@@ -9,9 +14,13 @@ obscount <- all_obs[,length(`Observation Name`),by=c("Focal_ID","Year","Group")]
 obskeep <- obscount[,.(Focal_ID,V1,V1>(mean(V1)-2*sd(V1))),by=c("Year","Group")][V3==T]
 all_obs <- all_obs[all_obs[,paste0(Focal_ID,Year,Group)] %in% obskeep[,paste0(Focal_ID,Year,Group)]]
 
-all_obs <- all_obs[Focal_ID %in% all_genotypes$Focal_ID]
-# all_obs$IDyear <- paste(all_obs$Focal_ID, all_obs$Year, all_obs$Observer, sep = "")
-# merged_OXTR_AVPR1$IDyear <- paste(merged_OXTR_AVPR1$Focal_ID, merged_OXTR_AVPR1$Year, merged_OXTR_AVPR1$Observer, sep = "")
+#filter based on some data overlap
+#all_obs <- all_obs[Focal_ID %in% all_genotypes$Focal_ID]
+
+# consolidate behaviors
+all_obs[,Give_Agg:=Give_noncontactAgg+Give_contactAgg]
+all_obs[,Receive_Agg:=Receive_contactAgg+Receive_noncontactAgg]
+all_obs[,c("Give_noncontactAgg","Give_contactAgg","Receive_contactAgg","Receive_noncontactAgg"):=NULL]
 
 # loop quantile function for all behaviors
 blevels <- list()
@@ -21,12 +30,4 @@ for (i in 6:ncol(all_obs)) {
   all_obs[[i]] <- as.numeric(all_obs[[i]])
 }
 
-#behavs <- colnames(all_obs)[6:ncol(all_obs)]
-
-#all_obs <- merge(all_obs, oxtr_genotypes, by="Focal_ID")
-
-# convert data frame to data table
-#all_obs <- as.data.table(all_obs)
-
-# cast data table by behavior (refer to cast script)
-
+setkey(all_obs,"Focal_ID","Year","Observation Name")
